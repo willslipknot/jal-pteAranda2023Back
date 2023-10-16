@@ -35,7 +35,6 @@ const Puntuacion= sequelize.define('Puntuacion', {
     },
     },
   {
-    schema: 'intencionVoto',
     tableName: 'puntuacion' , 
     timestamps: false,
   });

@@ -23,7 +23,6 @@ const Candidato = sequelize.define('Candidato', {
     },
     },
   {
-    schema: 'intencionVoto',
     tableName: 'candidatos' , 
     timestamps: false,
   });
