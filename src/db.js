@@ -4,10 +4,10 @@ const { Sequelize } = pkg;
 const sequelize = new Sequelize({
   dialect: 'postgres',
   username: 'postgres',
-  password: 'djWhRM6xB8LtrnwRWsbE',
+  password: 'WgdSfxKl1R42CqQoPGg7',
   database: 'railway',
-  host: 'containers-us-west-101.railway.app',
-  port: 5877,
+  host: 'containers-us-west-88.railway.app',
+  port: 5586,
 
 });
 
