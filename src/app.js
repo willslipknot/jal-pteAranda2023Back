@@ -9,9 +9,7 @@ import resultadosRoutes from './routes/resultados.routes.js'
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-    credentials: true
-}));
+app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(userRoutes);
