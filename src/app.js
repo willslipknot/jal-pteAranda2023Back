@@ -9,7 +9,10 @@ import resultadosRoutes from './routes/resultados.routes.js'
 
 const app = express();
 app.use(express.json());
-app.use(cors({origin:'https://jal-pte-aranda2023-front.vercel.app', credentials:true}));
+app.use(cors({
+    origin:'https://jal-pte-aranda2023-front1.vercel.app',
+    credentials: true
+}));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(userRoutes);
