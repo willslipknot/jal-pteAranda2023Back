@@ -8,7 +8,6 @@ const sequelize = new Sequelize({
   database: 'railway',
   host: 'containers-us-west-88.railway.app',
   port: 5586,
-
 });
 
 export default sequelize;

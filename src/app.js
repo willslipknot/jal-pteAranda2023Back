@@ -1,25 +1,29 @@
 import express from "express";
 import morgan from "morgan";
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'
 import cors from 'cors';
 import userRoutes from './routes/user.routes.js';
-import votoRoutes from './routes/voto.routes.js';
-import candidatosRoutes from './routes/candidatos.routes.js';
-import resultadosRoutes from './routes/resultados.routes.js';
+import votoRoutes from './routes/voto.routes.js'
+import candidatosRoutes from './routes/candidatos.routes.js'
+import resultadosRoutes from './routes/resultados.routes.js'
 
 const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
-    'https://jal-pte-aranda2023-front1.vercel.app',
-    'https://containers-us-west-88.railway.app',
+  'https://jal-pte-aranda2023-front1.vercel.app',
+  'https://containers-us-west-88.railway.app:5586',
 ];
 
 app.use(cors({
-    origin: allowedOrigins,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    optionsSuccessStatus: 204,
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 
 app.use(morgan('dev'));
