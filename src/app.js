@@ -9,10 +9,23 @@ import resultadosRoutes from './routes/resultados.routes.js'
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-    origin:'https://jal-pte-aranda2023-front1.vercel.app',
-    credentials: true
-}));
+
+const allowedOrigins = [
+    'https://jal-pte-aranda2023-front1.vercel.app',
+    'https://containers-us-west-88.railway.app:5586', 
+  ];
+  
+  app.use(cors({
+    origin: function(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  }));
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(userRoutes);
