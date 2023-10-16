@@ -1,13 +1,19 @@
 import pkg from 'sequelize';
 const { Sequelize } = pkg;
 
-const sequelize = new Sequelize({
-  dialect: 'postgres',
-  username: 'postgres',
-  password: 'WgdSfxKl1R42CqQoPGg7',
-  database: 'railway',
-  host: 'containers-us-west-88.railway.app',
-  port: 5586,
+import {
+  DB_HOST,
+  DB_NAME,
+  DB_PASSWORD,
+  DB_USER,
+  DB_PORT
+} from './config.js';
+
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: 'postgres', 
+  logging: false,
 });
 
 export default sequelize;
