@@ -14,7 +14,7 @@ const User = sequelize.define('User', {
     },
 },
     {
-        schema: 'intencionVoto',
+
         tableName: 'usuarios',
         timestamps: false,
     });
