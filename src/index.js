@@ -9,8 +9,4 @@ app.listen(PORT, () => {
   console.log(`Servidor en ejecución en el puerto ${PORT}`);
 });
 
-app.use((req, res, next) => {
-  const clientIP = req.ip;
-  res.send(`La dirección IP del cliente es: ${clientIP}`);
-  console.log({clientIP})
-});
+
