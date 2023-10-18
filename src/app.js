@@ -13,7 +13,8 @@ app.use(express.json());
 const allowedOrigins = [
   'https://jal-pte-aranda2023-front1.vercel.app',
   'https://containers-us-west-88.railway.app:5586',
-  'http://localhost:5173'
+  'http://localhost:5173',
+  'https://api.ipify.org'
 ];
 
 app.use(cors({
