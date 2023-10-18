@@ -81,3 +81,8 @@ export const verifyToken = async (req, res) => {
   })
 };
 
+export const getUsers = async (req, res) => {
+  const usuarios = await User.findAll()
+  res.json(usuarios)
+}
+
