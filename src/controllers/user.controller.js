@@ -1,10 +1,12 @@
 import User from '../models/user.models.js';
 import { Op } from 'sequelize';
 import { createAccessToken } from '../libs/jwt.js'
+import jwt  from 'jsonwebtoken';
+import { TOKEN_SECRET } from '../config.js';
 
 
 export const register = async (req, res) => {
-  const { nombre, correo } = req.body;
+  const { nombre, correo, tipo } = req.body;
 
   try {
     const existingUser = await User.findOne({
@@ -22,6 +24,7 @@ export const register = async (req, res) => {
     const newUser = await User.create({
       nombre,
       correo,
+      tipo,
     });
 
     console.log("Usuario creado");
@@ -33,5 +36,23 @@ export const register = async (req, res) => {
     console.error(error);
     res.status(500).json(["Error al registrar usuario."]);
   }
+};
+
+export const verifyToken = async (req, res) => {
+  const {token} = req.cookies
+  if (!token) return res.status(401).json({ message: "Sin autorizacion" });
+
+  jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+    if (err) return res.status(401).json({ message: "Sin autorizacion" });
+
+    const userFound = await User.findByPk(user.id)
+    if (!userFound) return res.status(401).json({ message: "Sin autorizacion" });
+
+    return res.json({
+      correo: userFound.correo,
+
+    })
+
+  })
 };
 
