@@ -26,7 +26,7 @@ const User = sequelize.define('User', {
     },
     voto: {
         type: DataTypes.STRING,
-        trim: true,s
+        trim: true,
     },
 },
     {
