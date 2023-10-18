@@ -9,4 +9,13 @@ app.listen(PORT, () => {
   console.log(`Servidor en ejecución en el puerto ${PORT}`);
 });
 
-
+app.get('/get-public-ip', async (req, res) => {
+  try {
+    const response = await axios.get('https://api.ipify.org?format=json');
+    const publicIP = response.data.ip;
+    res.json({ ip: publicIP });
+  } catch (error) {
+    console.error('Error al obtener la IP pública:', error);
+    res.status(500).json({ error: 'Error al obtener la IP pública' });
+  }
+})
