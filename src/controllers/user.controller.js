@@ -3,12 +3,11 @@ import { Op } from 'sequelize';
 import { createAccessToken } from '../libs/jwt.js'
 import jwt from 'jsonwebtoken';
 import { TOKEN_SECRET } from '../config.js';
-import axios from 'axios';
 
 
 export const register = async (req, res) => {
-  const { nombre, correo, tipo, ip, voto } = req.body;
-  //const apiKey = 'ev-8426a7a612990e993c0ddaa3d6b1dc96';
+  const { nombre, correo, tipo, ip, voto} = req.body;
+ 
 
   try {
     const existingUser = await User.findOne({
@@ -34,29 +33,19 @@ export const register = async (req, res) => {
     if (existingUser1) {
       return res.status(400).json(["Ya se voto desde este dispositivo, por favor intenta desde otro"]);
     }
-    /*
-    const response = await axios.get(`https://api.email-validator.net/api/verify?EmailAddress=${correo}&APIKey=${apiKey}`);
- 
-    
-    const isValidEmail = response.data.status === 200;
-    console.log(response.data)
- 
-    if (!isValidEmail) {
-      return res.status(400).json(["Correo electrónico inválido"]);
-    }*/
 
     const newUser = await User.create({
       nombre,
       correo,
       tipo,
       ip,
-      voto:"",
+      voto
     });
 
     console.log("Usuario creado");
     const token = await createAccessToken({ id: newUser.id });
     res.cookie('token', token);
-    res.json({ message: "Usuario creado correctamente" });
+    res.json({ message: "Usuario creado correctamente" , token});
 
   } catch (error) {
     console.error(error);
