@@ -1,12 +1,14 @@
 import User from '../models/user.models.js';
 import { Op } from 'sequelize';
 import { createAccessToken } from '../libs/jwt.js'
-import jwt  from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { TOKEN_SECRET } from '../config.js';
+import axios from 'axios';
 
 
 export const register = async (req, res) => {
   const { nombre, correo, tipo } = req.body;
+  const apiKey = 'ev-8426a7a612990e993c0ddaa3d6b1dc96';
 
   try {
     const existingUser = await User.findOne({
@@ -19,6 +21,16 @@ export const register = async (req, res) => {
 
     if (existingUser) {
       return res.status(400).json(["Ya existe un usuario con el mismo correo electrónico."]);
+    }
+
+    const response = await axios.get(`https://api.email-validator.net/api/verify?EmailAddress=${correo}&APIKey=${apiKey}`);
+
+    
+    const isValidEmail = response.data.status === 200;
+    console.log(response.data)
+
+    if (!isValidEmail) {
+      return res.status(400).json(["Correo electrónico inválido"]);
     }
 
     const newUser = await User.create({
@@ -39,7 +51,7 @@ export const register = async (req, res) => {
 };
 
 export const verifyToken = async (req, res) => {
-  const {token} = req.cookies
+  const { token } = req.cookies
   if (!token) return res.status(401).json({ message: "Sin autorizacion" });
 
   jwt.verify(token, TOKEN_SECRET, async (err, user) => {
