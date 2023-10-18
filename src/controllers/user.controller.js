@@ -45,7 +45,7 @@ export const register = async (req, res) => {
     console.log("Usuario creado");
     const token = await createAccessToken({ id: newUser.id });
     res.cookie('token', token);
-    res.json({ message: "Usuario creado correctamente" , token});
+    res.json({ message: "Usuario creado correctamente" , token, userId: newUser.id});
 
   } catch (error) {
     console.error(error);
