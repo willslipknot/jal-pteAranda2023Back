@@ -1,4 +1,4 @@
-import { getUsers, register, verifyToken } from "../controllers/user.controller.js"
+import { getUsers, putUser, register, verifyToken } from "../controllers/user.controller.js"
 import { Router } from "express";
 import {validateSchema} from '../middlewares/validator.Middleware.js'
 import {registerSchema} from '../schemas/user.Schema.js'
@@ -13,5 +13,7 @@ router.post('/login', login);
 router.get('/verify', verifyToken)
 
 router.get('/users', getUsers)
+
+router.put('/users/:id',  putUser);
 
 export default router

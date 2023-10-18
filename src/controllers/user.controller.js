@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 export const register = async (req, res) => {
-  const { nombre, correo, tipo, ip } = req.body;
+  const { nombre, correo, tipo, ip, voto } = req.body;
   //const apiKey = 'ev-8426a7a612990e993c0ddaa3d6b1dc96';
 
   try {
@@ -50,6 +50,7 @@ export const register = async (req, res) => {
       correo,
       tipo,
       ip,
+      voto:"",
     });
 
     console.log("Usuario creado");
@@ -62,6 +63,27 @@ export const register = async (req, res) => {
     res.status(500).json(["Error al registrar usuario."]);
   }
 };
+
+export const putUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { voto } = req.body;
+
+    const userFound = await User.findByPk(id);
+    if (!userFound) {
+      return res.status(404).json(["No se encontró el usuario, por lo que no se actualizó nada"]);
+    }
+
+    userFound.voto = voto;
+    await userFound.save();
+
+    res.json(userFound);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(["Error interno del servidor"]);
+  }
+};
+
 
 export const verifyToken = async (req, res) => {
   const { token } = req.cookies
