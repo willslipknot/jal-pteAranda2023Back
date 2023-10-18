@@ -19,7 +19,7 @@ export const register = async (req, res) => {
       }
     });
 
-    if (existingUser) {
+    /*if (existingUser) {
       return res.status(400).json(["Ya existe un usuario con el mismo correo electrónico."]);
     }
 
@@ -31,7 +31,7 @@ export const register = async (req, res) => {
 
     if (!isValidEmail) {
       return res.status(400).json(["Correo electrónico inválido"]);
-    }
+    }*/
 
     const newUser = await User.create({
       nombre,
