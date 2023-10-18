@@ -32,7 +32,7 @@ export const register = async (req, res) => {
     }
 
     if (existingUser1) {
-      return res.status(400).json(["Ya existe un usuario con la misma ip"]);
+      return res.status(400).json(["Ya se voto desde este dispositivo, por favor intenta desde otro"]);
     }
     /*
     const response = await axios.get(`https://api.email-validator.net/api/verify?EmailAddress=${correo}&APIKey=${apiKey}`);
