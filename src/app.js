@@ -18,7 +18,7 @@ const allowedOrigins = [
   'https://api64.ipify.org?format=json',
   
 ];
-
+app.use(cookieParser());
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
