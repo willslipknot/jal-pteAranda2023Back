@@ -18,6 +18,12 @@ const User = sequelize.define('User', {
         unique: true,
         trim: true,
     },
+    ip: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        trim: true,
+    },
 },
     {
 

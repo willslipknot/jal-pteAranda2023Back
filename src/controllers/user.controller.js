@@ -7,8 +7,8 @@ import axios from 'axios';
 
 
 export const register = async (req, res) => {
-  const { nombre, correo, tipo } = req.body;
-  const apiKey = 'ev-8426a7a612990e993c0ddaa3d6b1dc96';
+  const { nombre, correo, tipo, ip } = req.body;
+  //const apiKey = 'ev-8426a7a612990e993c0ddaa3d6b1dc96';
 
   try {
     const existingUser = await User.findOne({
@@ -19,16 +19,28 @@ export const register = async (req, res) => {
       }
     });
 
-    /*if (existingUser) {
+    const existingUser1 = await User.findOne({
+      where: {
+        [Op.or]: [
+          { ip: ip }
+        ]
+      }
+    });
+
+    if (existingUser) {
       return res.status(400).json(["Ya existe un usuario con el mismo correo electrónico."]);
     }
 
+    if (existingUser1) {
+      return res.status(400).json(["Ya existe un usuario con la misma ip"]);
+    }
+    /*
     const response = await axios.get(`https://api.email-validator.net/api/verify?EmailAddress=${correo}&APIKey=${apiKey}`);
-
+ 
     
     const isValidEmail = response.data.status === 200;
     console.log(response.data)
-
+ 
     if (!isValidEmail) {
       return res.status(400).json(["Correo electrónico inválido"]);
     }*/
@@ -37,6 +49,7 @@ export const register = async (req, res) => {
       nombre,
       correo,
       tipo,
+      ip,
     });
 
     console.log("Usuario creado");
